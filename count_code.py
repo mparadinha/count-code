@@ -27,7 +27,7 @@ def lines_of_code(filename):
     lines = [line for line in lines if not line.startswith("#")]
     
     # remove empty lines
-    lines = [line for line in lines if line != ""]
+    lines = [line for line in lines if line.strip() != ""]
     
     return len(lines)
 
@@ -40,13 +40,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     files = []
-    for path in args.path:
+    for path in args.paths:
         files.extend(get_filepaths(os.path.join(os.getcwd(), path)))
     lines = list(map(lines_of_code, files))
     
     if args.verbose:
         d = dict(zip(files, lines))
         for k in sorted(d.keys()):
-            print(k.split("\\")[-1], "-->", d[k], "lines") 
+            print("\\".join(k.split("\\")[-2:]), "-->", d[k], "lines") 
                   
     print(sum(lines), "lines of code in total")

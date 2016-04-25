@@ -7,5 +7,5 @@ Options:
 - -p, --path --> specify subdirectories to scan
 
 Usage examples:
-- `python count_code.py`
-- `python count_code.py -v -p some_dir`
+- `python count_code.py -v`
+- `python count_code.py --path some_dir --path other_dir`
