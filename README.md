@@ -4,7 +4,7 @@ Command line interface for counting lines of code in pythons scripts
 
 Options:
 - -v, --verbose --> increase output
-- -p, --path --> specify a path to scan
+- -p, --path --> specify subdirectories to scan
 
 Usage examples:
 - `python count_code.py`
