@@ -31,22 +31,34 @@ def lines_of_code(filename):
     
     return len(lines)
 
-if __name__ == "__main__":
+def main():
     parser = ArgumentParser(description="Count lines of python code in a certain folder")
     parser.add_argument("-p", "--path", action="append", dest="paths",
                         help="specify subdirectories to scan")
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="show more stuff on screen")
     args = parser.parse_args()
+    if not args.paths:
+        print("to see how to use this tool type 'python count_code.py -h'.")
+        return
     
     files = []
     for path in args.paths:
-        files.extend(get_filepaths(os.path.join(os.getcwd(), path)))
+        start_dir = os.getcwd()
+        os.chdir("".join(["." for _ in range(path.count("."))]))
+        
+        files.extend(get_filepaths(os.path.join(os.getcwd(), path.replace(".", ""))))
+        
+        os.chdir(start_dir)
+        
     lines = list(map(lines_of_code, files))
     
     if args.verbose:
         d = dict(zip(files, lines))
         for k in sorted(d.keys()):
-            print("\\".join(k.split("\\")[-2:]), "-->", d[k], "lines") 
+            print("/".join(k.split("\\")[-2:]), "-->", d[k], "lines") 
                   
     print(sum(lines), "lines of code in total")
+    
+if __name__ == "__main__":
+    main()
