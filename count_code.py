@@ -34,13 +34,12 @@ def lines_of_code(filename):
 def main():
     parser = ArgumentParser(description="Count lines of python code in a certain folder")
     parser.add_argument("-p", "--path", action="append", dest="paths",
-                        help="specify subdirectories to scan")
+                        help="specify subdirectories to scan, defaults to current directory")
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="show more stuff on screen")
     args = parser.parse_args()
     if not args.paths:
-        print("to see how to use this tool type 'python count_code.py -h'.")
-        return
+        args.paths = [os.getcwd()]
     
     files = []
     for path in args.paths:
